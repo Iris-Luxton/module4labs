@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+   <head>
+       <style>
+           body {
+             font-family: Arial, Helvetica, sans-serif;
+             background-color: #e3f2fd;
+           }
+           .card {
+             padding: 10px;
+           }
+           .card-title {
+             font-weight: 600;
+             font-size: 3em;
+             padding: 0 0 10px 0;
+           }
+           .card-description {
+             font-weight: 400;
+             font-size: 2em
+           }
+       </style>
+   </head>
+   <body>
+       <template id="card-template">
+           <div class="card">
+             <div class="card-body">
+               <div class="card-title"></div>
+               <div class="card-text"></div>
+             </div>
+           </div>
+       </template>
+      
+       <div id="card-list"></div>
+   </body>
+   <button>Click for news</button>
+   <form action="example.com" method="post">
+    <label>name<input type="text" name="name"></label>
+    <input type="submit" value="submit">
+   </form>
+</html>
+
+<script>
+
+      let news=[
+        { id: 1, title: 'News1', content:"bla"},
+        { id: 2, title: 'News2', content:"ble"},
+        { id: 3, title: 'News3', content:"blu"}
+    ];
+    
+
+    function newsflash(e) {
+      e.preventDefault()
+      while (document.querySelector('#card-list').firstChild) {
+        document.querySelector('#card-list').lastChild.remove();
+      }
+     news.forEach(addCard);
+    
+    //  axios.post("urlgoeshere", {
+    //    information: "this is an object i send to the request on my backend."
+    //  }).then((Response) => {Response.forEach(addCard)
+    //   if (Response[1] === true) {
+    //     document.querySelector(".alert").style.display = "visible"
+    //   }
+    //   news.push(Response[0])});
+    };
+
+    function addCard(obj) {
+      
+       const template = document.getElementById("card-template").content.cloneNode(true);
+       template.querySelector('.card-title').innerText = obj.title || 'header';
+       template.querySelector('.card-text').innerText =  obj.content || 'paragraph';
+       document.querySelector('#card-list').appendChild(template);  
+       
+    }
+    // if ('content' in document.createElement('template')) {
+    //       addCard();
+    // }
+  document.querySelector("button").addEventListener("click", newsflash);
+  
+</script>
